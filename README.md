@@ -1,11 +1,10 @@
-Welcome to Memory Game, a fun and interactive card-matching game designed to test and improve your memory skills!
+# Memory Game
+
+## Welcome to Memory Game, a fun and interactive card-matching game designed to test and improve your memory skills!
 
 🌟 Features
-Responsive Design: Play on any device - mobile, tablet, or desktop.
 
-Engaging Gameplay: Match pairs of cards with vibrant animal images.
-
-Congratulations Popup: Celebrate your win with a congratulatory message when all cards are matched.
+Engaging Gameplay: Match pairs of cards with vibrant fruit images.
 
 Restart Anytime: Start over easily with the Restart button.
 
