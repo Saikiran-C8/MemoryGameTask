@@ -15,3 +15,5 @@ Click on a card to flip it over.
 Flip another card to find its match.
 Match all pairs to win the game!
 Celebrate your win with a popup and restart to play again
+
+![Screenshot 2025-02-19 140647](https://github.com/user-attachments/assets/d8effc8d-0138-4693-b69d-4e31de2eb537)
