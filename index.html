@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <section>
+        <div class="flex col-gap-40 justify-center">
+            <div>
+                <h1>Memory Game</h1>
+            </div>
+            <div>
+                <button onclick="restartGame()">Restart Game</button>
+            </div>
+        </div>
+        <div class="game-container" id="gameBoard"></div>
+        <div id="gameOver"> 
+            <h2>Game Over!</h2> 
+        </div>
+    </section>
+
+    <script>
+        const emojis = ['🍎', '🍌', '🍒', '🍇', '🍎', '🍌', '🍒', '🍇', '🥑', '🍉', '🍋', '🍍', '🥑',
+         '🍉', '🍋', '🍍'];
+        let shuffledEmojis = emojis.sort(() => Math.random() - 0.5);
+        let firstCard = null, secondCard = null;
+        let lockBoard = false;
+        let matchesFound = 0;
+        
+        function createBoard() {
+            const gameBoard = document.getElementById('gameBoard');
+            gameBoard.innerHTML = '';
+            shuffledEmojis.forEach((emoji, index) => {
+                const card = document.createElement('div');
+                card.classList.add('card');
+                card.dataset.emoji = emoji;
+                card.dataset.index = index;
+                card.addEventListener('click', flipCard);
+                gameBoard.appendChild(card);
+            });
+        }
+        
+        function flipCard() {
+            if (lockBoard) return;
+            if (this === firstCard || this.classList.contains('flipped')) return;
+            
+            this.textContent = this.dataset.emoji;
+            this.classList.add('flipped');
+            
+            if (!firstCard) {
+                firstCard = this;
+                return;
+            }
+            
+            secondCard = this;
+            lockBoard = true;
+            
+            checkMatch();
+        }
+        
+        function checkMatch() {
+            let isMatch = firstCard.dataset.emoji === secondCard.dataset.emoji;
+            if (isMatch) {
+                matchesFound += 1;
+                resetBoard();
+                if (matchesFound === emojis.length / 2) {
+                    document.getElementById('gameOver').style.display = 'block';
+                }
+            } else {
+                setTimeout(() => {
+                    firstCard.textContent = '';
+                    secondCard.textContent = '';
+                    firstCard.classList.remove('flipped');
+                    secondCard.classList.remove('flipped');
+                    resetBoard();
+                }, 1000);
+            }
+        }
+        
+        function resetBoard() {
+            [firstCard, secondCard, lockBoard] = [null, null, false];
+        }
+        
+        function restartGame() {
+            shuffledEmojis = emojis.sort(() => Math.random() - 0.5);
+            matchesFound = 0;
+            document.getElementById('gameOver').style.display = 'none';
+            createBoard();
+        }
+        
+        createBoard();
+    </script>
+</body>
+</html>
